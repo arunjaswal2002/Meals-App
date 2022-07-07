@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -10,7 +8,7 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(title),
+      child: Text(title, style: Theme.of(context).textTheme.subtitle1),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           gradient: LinearGradient(
