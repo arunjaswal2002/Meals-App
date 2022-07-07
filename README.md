@@ -1,4 +1,4 @@
-# mealsapp
+# Mealsapp
 
 A new Flutter project.
 
