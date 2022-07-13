@@ -34,12 +34,9 @@ class MealDetailScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20)),
+              Container(
+                  height: 300,
+                  width: double.infinity,
                   child: Image.network(
                     selectedMealDetails.imageUrl,
                     height: 300,
