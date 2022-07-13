@@ -74,6 +74,11 @@ class MealDetailScreen extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        ),
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.delete),
+            onPressed: () {
+              Navigator.of(context).pop(mealID);//the id of the item which has to be removed temporarily
+            }));
   }
 }

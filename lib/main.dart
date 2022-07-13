@@ -1,15 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:mealsapp/dummy_data.dart';
 import 'package:mealsapp/screens/filterScreen.dart';
-import './screens/categories_Screen.dart';
+// import './screens/categories_Screen.dart';
 import 'screens/AllMealsOfParticularCategory.dart';
 import './screens/mealDetails.dart';
 import './screens/tabsScreen.dart';
 import './screens/filterScreen.dart';
+import 'Classes/meals.dart';
 
 void main() => runApp(MealsApp());
 
-class MealsApp extends StatelessWidget {
+class MealsApp extends StatefulWidget {
+  @override
+  State<MealsApp> createState() => _MealsAppState();
+}
+
+class _MealsAppState extends State<MealsApp> {
   // const MealsApp({Key? key}) : super(key: key);
+
+  Map<String, bool> filter = {
+    'gluten': false,
+    'lactose': false,
+    'vegetarian': false,
+    'vegan': false
+  };
+  List<Meal> _availableMeals = DUMMY_MEALS;
+  void setFilter(Map<String, bool> filterData) {
+    setState(() {
+      filter = filterData;
+      _availableMeals = DUMMY_MEALS.where((meal) {
+        if (filter['gluten']== true && !meal.isGlutenFree) {
+          return false;
+        }
+        if (filter['lactose']== true && !meal.isLactoseFree) {
+          return false;
+        }
+        if (filter['vegan']== true && !meal.isVegan) {
+          return false;
+        }
+        if (filter['vegetarian'] == true && !meal.isVegetarian) {
+          return false;
+        }
+
+        return true;
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +68,10 @@ class MealsApp extends StatelessWidget {
       // home: const CategoriesScreen(),
       routes: {
         '/': (_) => TabsScreen(), //default route is '/'
-        CategoryMealsScreen.routeName: (_) => CategoryMealsScreen(),
+        CategoryMealsScreen.routeName: (_) =>
+            CategoryMealsScreen(_availableMeals),
         MealDetailScreen.routeName: (_) => MealDetailScreen(),
-        FilterScreen.routeName: (_) => FilterScreen(),
+        FilterScreen.routeName: (_) => FilterScreen(filter, setFilter),
       },
     );
   }
