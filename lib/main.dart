@@ -25,17 +25,18 @@ class _MealsAppState extends State<MealsApp> {
     'vegan': false
   };
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoriteMeals = [];
   void setFilter(Map<String, bool> filterData) {
     setState(() {
       filter = filterData;
       _availableMeals = DUMMY_MEALS.where((meal) {
-        if (filter['gluten']== true && !meal.isGlutenFree) {
+        if (filter['gluten'] == true && !meal.isGlutenFree) {
           return false;
         }
-        if (filter['lactose']== true && !meal.isLactoseFree) {
+        if (filter['lactose'] == true && !meal.isLactoseFree) {
           return false;
         }
-        if (filter['vegan']== true && !meal.isVegan) {
+        if (filter['vegan'] == true && !meal.isVegan) {
           return false;
         }
         if (filter['vegetarian'] == true && !meal.isVegetarian) {
@@ -45,6 +46,25 @@ class _MealsAppState extends State<MealsApp> {
         return true;
       }).toList();
     });
+  }
+
+  void _toggleFavorite(String mealID) {
+    final existingIndex =
+        _favoriteMeals.indexWhere((meal) => meal.id == mealID);
+
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteMeals.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteMeals.add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealID));
+      });
+    }
+  }
+
+  bool _isFavorite(String id) {
+    return _favoriteMeals.any((meal) => meal.id == id);
   }
 
   @override
@@ -67,10 +87,10 @@ class _MealsAppState extends State<MealsApp> {
               ))),
       // home: const CategoriesScreen(),
       routes: {
-        '/': (_) => TabsScreen(), //default route is '/'
+        '/': (_) => TabsScreen(_favoriteMeals), //default route is '/'
         CategoryMealsScreen.routeName: (_) =>
             CategoryMealsScreen(_availableMeals),
-        MealDetailScreen.routeName: (_) => MealDetailScreen(),
+        MealDetailScreen.routeName: (_) => MealDetailScreen(_toggleFavorite,_isFavorite),
         FilterScreen.routeName: (_) => FilterScreen(filter, setFilter),
       },
     );

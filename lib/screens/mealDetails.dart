@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:mealsapp/dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
-  const MealDetailScreen({Key? key}) : super(key: key);
+  // const MealDetailScreen({Key? key}) : super(key: key);
   static const routeName = '/meal-detail';
+
+  final Function _toggleFavorite;
+  final Function isFavorite;
+  MealDetailScreen(this._toggleFavorite, this.isFavorite);
   Widget detailTitle(BuildContext context, String title) {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
@@ -76,9 +80,9 @@ class MealDetailScreen extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.delete),
+            child: Icon(isFavorite(mealID) ? Icons.star : Icons.star_border),
             onPressed: () {
-              Navigator.of(context).pop(mealID);//the id of the item which has to be removed temporarily
+              _toggleFavorite(mealID);
             }));
   }
 }
