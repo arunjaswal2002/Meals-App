@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mealsapp/screens/filterScreen.dart';
+import 'package:mealsapp/screens/inputPage.dart';
 
 class MainDrawer extends StatelessWidget {
   Widget buildListTile(String title, IconData i, VoidCallback f) {
@@ -24,7 +25,7 @@ class MainDrawer extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(15),
               alignment: Alignment.centerLeft,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).hintColor,
               child: Text('Cooking up!',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -38,6 +39,9 @@ class MainDrawer extends StatelessWidget {
           }),
           buildListTile('Filter', Icons.filter, () {
             Navigator.of(context).pushReplacementNamed(FilterScreen.routeName);
+          }),
+          buildListTile('BMI', Icons.health_and_safety, () {
+            Navigator.of(context).pushReplacementNamed(InputPage.routeName);
           }),
         ],
       ),

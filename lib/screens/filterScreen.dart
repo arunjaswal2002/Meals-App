@@ -43,7 +43,7 @@ class _FilterScreenState extends State<FilterScreen> {
           title: const Text('Your Filters'),
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.save),
+                icon: const Icon(Icons.save),
                 onPressed: () {
                   final savedFilters = {
                     'gluten': _glutenFree,

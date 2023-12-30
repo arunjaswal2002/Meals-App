@@ -26,7 +26,7 @@ class _TabsScreenState extends State<TabsScreen> {
             drawer: MainDrawer(),
             body: TabBarView(children: <Widget>[
               CategoriesScreen(),
-              FavoritesScreen(widget.favoriteMeal)
+              FavoritesScreen(widget.favoriteMeal),
             ])));
   }
 }

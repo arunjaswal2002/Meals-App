@@ -1,11 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:mealsapp/dummy_data.dart';
 import 'package:mealsapp/screens/filterScreen.dart';
-// import './screens/categories_Screen.dart';
+import 'package:mealsapp/screens/inputPage.dart';
 import 'screens/AllMealsOfParticularCategory.dart';
 import './screens/mealDetails.dart';
 import './screens/tabsScreen.dart';
-import './screens/filterScreen.dart';
 import 'Classes/meals.dart';
 
 void main() => runApp(MealsApp());
@@ -16,8 +16,6 @@ class MealsApp extends StatefulWidget {
 }
 
 class _MealsAppState extends State<MealsApp> {
-  // const MealsApp({Key? key}) : super(key: key);
-
   Map<String, bool> filter = {
     'gluten': false,
     'lactose': false,
@@ -71,14 +69,15 @@ class _MealsAppState extends State<MealsApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Meals App",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: Colors.blueGrey,
-          accentColor: Colors.amber,
+          hintColor: Colors.amber,
           canvasColor: const Color.fromRGBO(255, 254, 229, 1),
           fontFamily: 'Raleway',
           textTheme: ThemeData.light().textTheme.copyWith(
-              bodyText1: const TextStyle(
-                  color: Color.fromRGBO(20, 51, 51, 1), fontFamily: 'Raleway'),
+              bodyText1:
+                  const TextStyle(color: Colors.blue, fontFamily: 'Raleway'),
               bodyText2: const TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
               subtitle1: const TextStyle(
                 fontSize: 20,
@@ -90,8 +89,10 @@ class _MealsAppState extends State<MealsApp> {
         '/': (_) => TabsScreen(_favoriteMeals), //default route is '/'
         CategoryMealsScreen.routeName: (_) =>
             CategoryMealsScreen(_availableMeals),
-        MealDetailScreen.routeName: (_) => MealDetailScreen(_toggleFavorite,_isFavorite),
+        MealDetailScreen.routeName: (_) =>
+            MealDetailScreen(_toggleFavorite, _isFavorite),
         FilterScreen.routeName: (_) => FilterScreen(filter, setFilter),
+        InputPage.routeName: (_) => InputPage(),
       },
     );
   }
